@@ -115,7 +115,7 @@ router.post("/forgot", async (req, res) => {
                         },
                         {
                             item:"reset link",
-                            description:`http://localhost:3000/reset-password/${isExist._id}/${token}`
+                            description:`https://master--spontaneous-crepe-f6b6a1.netlify.app/${isExist._id}/${token}`
                         },
                         {
                             item:"Tempoary password",

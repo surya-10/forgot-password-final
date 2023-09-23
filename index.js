@@ -11,5 +11,5 @@ app.use(cors());
 app.use(express.json());
 app.use("/", userRouter);
 
-let port = process.env.port;
+let port = 9001;
 app.listen(port, ()=>console.log("server connected"));
