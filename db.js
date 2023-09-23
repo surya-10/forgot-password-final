@@ -2,7 +2,6 @@ import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 dotenv.config();
 
-
 let str = process.env.conStr;
 async function dbConnection(){
     let client = new MongoClient(str);
