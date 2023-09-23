@@ -1,8 +1,8 @@
 import express from "express";
-// import { client } from "./db.js";
+import { client } from "./db.js";
 import dotenv from "dotenv";
 dotenv.config();
-// import { userRouter } from "./routes/route.js";
+import { userRouter } from "./routes/route.js";
 import cors from "cors";
 
 
