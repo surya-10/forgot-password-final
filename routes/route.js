@@ -149,36 +149,36 @@ router.post("/forgot", async (req, res) => {
     }
 })
 
-router.post("/reset-password/:id/:token", async (req, res) => {
-    let { id, token } = req.params;
-    let { password } = req.body;
-    let finalResult = false;
-    let status = "";
-    let verifyToken =jwt.verify(token, process.env.secret_key, (err, decoded) => {
-        if (err) {
-            finalResult = false;
-            status="token expired"
-        }
-        else{
-            finalResult = true;
-            status="token verified"
-        }
-    })
-    if(finalResult){
-        let checkTempPass = await checkPassAndId(id, password);
-        console.log(checkTempPass);
-        if(checkTempPass){
-            return res.status(200).json({finalResult:checkTempPass, status:"matching"});
-        }
-        else{
-            return res.status(400).json({finalResult:checkTempPass, status:"not"});
-        }
+// router.post("/reset-password/:id/:token", async (req, res) => {
+//     let { id, token } = req.params;
+//     let { password } = req.body;
+//     let finalResult = false;
+//     let status = "";
+//     let verifyToken =jwt.verify(token, process.env.secret_key, (err, decoded) => {
+//         if (err) {
+//             finalResult = false;
+//             status="token expired"
+//         }
+//         else{
+//             finalResult = true;
+//             status="token verified"
+//         }
+//     })
+//     if(finalResult){
+//         let checkTempPass = await checkPassAndId(id, password);
+//         console.log(checkTempPass);
+//         if(checkTempPass){
+//             return res.status(200).json({finalResult:checkTempPass, status:"matching"});
+//         }
+//         else{
+//             return res.status(400).json({finalResult:checkTempPass, status:"not"});
+//         }
         
-    }
-    else{
-    return res.status(400).json({finalResult:finalResult, status:"token expired"});
-    }
-})
+//     }
+//     else{
+//     return res.status(400).json({finalResult:finalResult, status:"token expired"});
+//     }
+// })
 
 router.post("/update-new-password", async(req, res)=>{
     try {
