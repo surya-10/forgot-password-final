@@ -117,7 +117,7 @@ router.post("/forgot", async (req, res) => {
                         },
                         {
                             item:"reset link",
-                            description:`https://master--spontaneous-crepe-f6b6a1.netlify.app/${isExist._id}/${token}`
+                            description:`https://master--spontaneous-crepe-f6b6a1.netlify.app/reset-password/${isExist._id}/${token}`
                         },
                         {
                             item:"Tempoary password",
@@ -151,7 +151,7 @@ router.post("/forgot", async (req, res) => {
     }
 })
 
-router.post("/:id/:token", async (req, res) => {
+router.post("/reset-password/:id/:token", async (req, res) => {
     let { id, token } = req.params;
     let { password } = req.body;
     let finalResult = false;

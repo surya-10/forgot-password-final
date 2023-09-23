@@ -1,6 +1,6 @@
 import express from "express";
 import { client } from "./db.js";
-import { userRouter } from "./routes/route.js";
+// import { userRouter } from "./routes/route.js";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
@@ -9,7 +9,7 @@ dotenv.config();
 let app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/", userRouter);
+// app.use("/", userRouter);
 
 let port = 9001;
 app.listen(port, ()=>console.log("server connected"));
