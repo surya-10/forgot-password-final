@@ -3,12 +3,14 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 // dotenv.config();
-import { client } from "./db.js";
+// import { client } from "./db.js";
 // import { userRouter } from "./routes/route.js";
 
 let app = express();
-app.use(express.json());
+
 app.use(cors());
+app.use(express.json());
+
 
 // app.use("/", userRouter);
 
