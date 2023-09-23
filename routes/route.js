@@ -82,11 +82,10 @@ router.post("/forgot", async (req, res) => {
             return res.status(400).json({ status: 400, msg: "fill all fields" })
         }
         let isExist = await checkUser(userData.email);
-        // console.log(isExist._id)
         if (!isExist) {
             return res.status(404).json({ status: 404, msg: "user does not exist" })
         }
-        let token = await jwt.sign({ id: isExist._id }, process.env.secret_key, { expiresIn: "1d" });
+        let token =jwt.sign({ id: isExist._id }, process.env.secret_key, { expiresIn: "1d" });
         let tempPassword = await generatePassword(20);
         let updateTempPassword = await updatePass(isExist.email, tempPassword)
         var transporter = nodemailer.createTransport({
