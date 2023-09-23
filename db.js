@@ -1,6 +1,6 @@
-import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 dotenv.config();
+import { MongoClient } from "mongodb";
 
 let str = "mongodb+srv://forgot:forgot@cluster0.zjxmjix.mongodb.net/?retryWrites=true&w=majority";
 async function dbConnection(){
