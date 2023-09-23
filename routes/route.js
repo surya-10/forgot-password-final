@@ -5,9 +5,8 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import mailgen from "mailgen";
-import { ObjectId } from "mongodb";
 dotenv.config();
-import { addUser, checkPassAndId, checkUser, findId, updateNewPasswordToUser, updatePass } from "../controllers/userControl.js";
+import { addUser, checkPassAndId, checkUser, updateNewPasswordToUser, updatePass } from "../controllers/userControl.js";
 
 
 let router = express.Router();
@@ -86,6 +85,7 @@ router.post("/forgot", async (req, res) => {
             return res.status(404).json({ status: 404, msg: "user does not exist" })
         }
         let token =jwt.sign({ id: isExist._id }, process.env.secret_key, { expiresIn: "1d" });
+        console.log("toke", token)
         let tempPassword = await generatePassword(20);
         let updateTempPassword = await updatePass(isExist.email, tempPassword)
         var transporter = nodemailer.createTransport({
@@ -99,7 +99,7 @@ router.post("/forgot", async (req, res) => {
             theme: "default",
             product: {
                 name: "Team",
-                link: "#"
+                link: "hello"
             }
         });
 
