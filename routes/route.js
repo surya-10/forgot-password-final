@@ -8,7 +8,9 @@ import mailgen from "mailgen";
 dotenv.config();
 import { addUser, checkPassAndId, checkUser, updateNewPasswordToUser, updatePass } from "../controllers/userControl.js";
 
-
+let adminEmail="sp659151@gmail.com";
+let adminPass="vlnypqakekxcuefw";
+let secret_key="bifvbbfkbfklgfiigfef";
 let router = express.Router();
 
 router.get("/", (req, res) => {
@@ -84,15 +86,15 @@ router.post("/forgot", async (req, res) => {
         if (!isExist) {
             return res.status(404).json({ status: 404, msg: "user does not exist" })
         }
-        let token =jwt.sign({ id: isExist._id }, process.env.secret_key, { expiresIn: "1d" });
+        let token =jwt.sign({ id: isExist._id }, secret_key, { expiresIn: "1d" });
         console.log("toke", token)
         let tempPassword = await generatePassword(20);
         let updateTempPassword = await updatePass(isExist.email, tempPassword)
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: process.env.adminEmail,
-                pass: process.env.adminPass
+                user: adminEmail,
+                pass: adminPass
             }
         });
         let mailGen = new mailgen({
@@ -131,7 +133,7 @@ router.post("/forgot", async (req, res) => {
 
 
         var mailOptions = {
-            from: process.env.adminEmail,
+            from: adminEmail,
             to: userData.email,
             subject: 'Reset password',
             html: sendToUser
@@ -149,36 +151,36 @@ router.post("/forgot", async (req, res) => {
     }
 })
 
-// router.post("/reset-password/:id/:token", async (req, res) => {
-//     let { id, token } = req.params;
-//     let { password } = req.body;
-//     let finalResult = false;
-//     let status = "";
-//     let verifyToken =jwt.verify(token, process.env.secret_key, (err, decoded) => {
-//         if (err) {
-//             finalResult = false;
-//             status="token expired"
-//         }
-//         else{
-//             finalResult = true;
-//             status="token verified"
-//         }
-//     })
-//     if(finalResult){
-//         let checkTempPass = await checkPassAndId(id, password);
-//         console.log(checkTempPass);
-//         if(checkTempPass){
-//             return res.status(200).json({finalResult:checkTempPass, status:"matching"});
-//         }
-//         else{
-//             return res.status(400).json({finalResult:checkTempPass, status:"not"});
-//         }
+router.post("/:id/:token", async (req, res) => {
+    let { id, token } = req.params;
+    let { password } = req.body;
+    let finalResult = false;
+    let status = "";
+    let verifyToken =jwt.verify(token, secret_key, (err, decoded) => {
+        if (err) {
+            finalResult = false;
+            status="token expired"
+        }
+        else{
+            finalResult = true;
+            status="token verified"
+        }
+    })
+    if(finalResult){
+        let checkTempPass = await checkPassAndId(id, password);
+        console.log(checkTempPass);
+        if(checkTempPass){
+            return res.status(200).json({finalResult:checkTempPass, status:"matching"});
+        }
+        else{
+            return res.status(400).json({finalResult:checkTempPass, status:"not"});
+        }
         
-//     }
-//     else{
-//     return res.status(400).json({finalResult:finalResult, status:"token expired"});
-//     }
-// })
+    }
+    else{
+    return res.status(400).json({finalResult:finalResult, status:"token expired"});
+    }
+})
 
 router.post("/update-new-password", async(req, res)=>{
     try {

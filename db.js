@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 dotenv.config();
 
-let str = process.env.conStr;
+let str = "mongodb+srv://forgot:forgot@cluster0.zjxmjix.mongodb.net/?retryWrites=true&w=majority";
 async function dbConnection(){
     let client = new MongoClient(str);
     await client.connect();
