@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 // dotenv.config();
-// import { client } from "./db.js";
+import { client } from "./db.js";
 // import { userRouter } from "./routes/route.js";
 
 let app = express();
