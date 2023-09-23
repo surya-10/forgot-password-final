@@ -4,6 +4,8 @@ import { userRouter } from "./routes/route.js";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
+options.includeResultMetadata = options.includeResultMetadata !== undefined && options.includeResultMetadata !== null ? options.includeResultMetadata : false;
+
 
 let app = express();
 app.use(cors());
