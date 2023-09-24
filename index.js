@@ -14,5 +14,5 @@ app.use(express.json());
 
 app.use("/", userRouter);
 
-let port = 9001;
+let port = process.env.port;
 app.listen(port, ()=>console.log("server connected"));
