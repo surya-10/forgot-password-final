@@ -57,7 +57,8 @@ router.post("/login", async (req, res) => {
         if (!checkPass) {
             return res.status(400).json({ status: 400, msg: "incorrect" });
         }
-        return res.status(200).json({ status: 200, msg: "login success" })
+        console.log(checkPass);
+        return res.status(200).json({ status: 200, msg: "login success", email:isExist.email })
     } catch (error) {
         return res.status(500).json({ status: 500, msg: "server error" })
     }
